@@ -28,6 +28,13 @@ class Task(db.Model):
     due = pw.DateField()
 
 
-    #property
+    @property
     def tags(self):
         return Tag.select().join(TaskTag).join(Task).where(Task.id == self.id)   
+
+class Tag(db.Model):
+    tag = pw.TextField(Unique=True)
+
+class TaskTag(db.Model)
+    task = pw.ForeignKeyField(Task)
+    tag = pw.ForeignKeyField(Tag)
