@@ -44,3 +44,14 @@ class Taskform(wt.Form)
     task = wt.TextField([wt.validators.Required()])
     tags = wt.TextField()
     due = wt.DataField
+
+#Queries
+def user_tasks():
+    return Task.select().join(User).where(User.id == auth.get_logged_in_user())
+
+def user_tagged_tasks(tag):
+    tagged_tasks = TaskTag.select().join(Tag).where(Tag.tag == tag)
+    tasks = Task.select().join(User).where(
+        (User.id == auth.get_logged_in_user())&
+        (Task.id << [t.task for t in tagged_tasks]))
+    return tasks
