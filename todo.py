@@ -38,3 +38,9 @@ class Tag(db.Model):
 class TaskTag(db.Model)
     task = pw.ForeignKeyField(Task)
     tag = pw.ForeignKeyField(Tag)
+
+#forms
+class Taskform(wt.Form)
+    task = wt.TextField([wt.validators.Required()])
+    tags = wt.TextField()
+    due = wt.DataField
